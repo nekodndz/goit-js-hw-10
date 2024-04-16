@@ -56,6 +56,7 @@ startBtn.addEventListener("click", () => {
 
 function startTimer() {
     startBtn.disabled = true;
+    inputEl.disabled = true;
 
     const currentDate = new Date().getTime();
     let timeDifference = selectedDate - currentDate;
@@ -67,8 +68,12 @@ function startTimer() {
 
         if (timeDifference <= 0) {
             clearInterval(timerInterval);
-            showSuccessToast("Timer has ended");
+            iziToast.success({
+                message: "Timer has ended",
+                ...toastConfig,
+            });
             startBtn.disabled = false;
+            inputEl.disabled = false; 
             return;
         }
 
@@ -109,7 +114,3 @@ function showErrorToast(message) {
     });
 }
 
-
-console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
